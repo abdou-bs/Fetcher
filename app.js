@@ -52,14 +52,13 @@ const I18N = {
     docs: "Documentation",
     configDownload: "Télécharger le config JSON",
     configTitle: "Configuration pour auto-actualisation",
-    configDesc: "Télécharge ce fichier calendar-config.json et mets-le dans ton propre dépôt GitHub pour obtenir un calendrier auto-actualisé.",
+    configDesc: "Télécharge ce fichier calendar-config.json et utilise-le avec GitHub Actions pour un calendrier auto-actualisé.",
     configSteps: [
-      "Crée ton propre dépôt GitHub avec ce projet. Le plus simple est un nouveau dépôt avec ces fichiers ; un fork fonctionne aussi.",
+      "Fork le dépôt GitHub du projet.",
       "Remplace le fichier calendar-config.json par celui téléchargé.",
-      "Active GitHub Pages (Settings → Pages → main branch, / (root)).",
-      "Si tu as utilisé un fork, ouvre l'onglet Actions, active les workflows, puis va dans Settings → Actions → General → Allow all actions.",
-      "Lance Actions → Update Calendar → Run workflow.",
-      "Abonne-toi ensuite à https://<your-username>.github.io/<repo-name>/calendar.ics",
+      "Active GitHub Actions dans ton fork (onglet Actions).",
+      "Active GitHub Pages (Settings → Pages → Source: main).",
+      "Ton calendrier sera mis à jour automatiquement toutes les 6 heures.",
     ],
     configHowTo: "Comment mettre en place l'auto-actualisation",
     orUpdate: "ou mettre à jour un fichier existant",
@@ -98,14 +97,13 @@ const I18N = {
     docs: "Documentation",
     configDownload: "Download config JSON",
     configTitle: "Configuration for auto-updates",
-    configDesc: "Download this calendar-config.json and put it in your own GitHub repository to get an auto-updating calendar.",
+    configDesc: "Download this calendar-config.json and use it with GitHub Actions for an auto-updating calendar.",
     configSteps: [
-      "Create your own GitHub repository with this project. A normal repo with these files is easiest; a fork also works.",
+      "Fork the project's GitHub repository.",
       "Replace the calendar-config.json file with the one you downloaded.",
-      "Enable GitHub Pages (Settings → Pages → main branch, / (root)).",
-      "If you used a fork, open the Actions tab, enable the workflows, then go to Settings → Actions → General → Allow all actions.",
-      "Run Actions → Update Calendar → Run workflow.",
-      "Then subscribe to https://<your-username>.github.io/<repo-name>/calendar.ics",
+      "Enable GitHub Actions in your fork (Actions tab).",
+      "Enable GitHub Pages (Settings → Pages → Source: main).",
+      "Your calendar will auto-update every 6 hours.",
     ],
     configHowTo: "How to set up auto-updates",
     orUpdate: "or update an existing file",
@@ -657,7 +655,7 @@ function generate() {
 }
 
 // -----------------------------------------------------------------
-// Subscribe → Download config JSON + show GitHub setup instructions
+// Subscribe → Download config JSON + show fork instructions
 // -----------------------------------------------------------------
 function subscribe() {
   const errEl = $("#formError");
@@ -666,21 +664,16 @@ function subscribe() {
   const modules = collectSelected();
   if (!modules) return;
 
-  const configModules = Object.entries(modules).map(([code, mod]) => ({
-    code,
-    name: mod.name,
-    tdGroup: mod.td_group,
-  }));
-
   const config = {
-    startDate: $("#startDate").value,
-    endDate: $("#endDate").value,
-    modules: configModules,
+    modules: modules,
+    start_date: $("#startDate").value,
+    end_date: $("#endDate").value,
+    include_exams: true,
   };
 
   downloadBlob(JSON.stringify(config, null, 2), "calendar-config.json", "application/json;charset=utf-8");
 
-  // Show GitHub setup instructions in the result card
+  // Show fork instructions in the result card
   const result = $("#subResult");
   result.classList.remove("hidden");
 

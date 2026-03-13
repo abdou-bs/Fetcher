@@ -39,127 +39,87 @@ A GitHub Actions cron job **automatically refreshes** the calendar every 6 hours
 
 ---
 
-## Two Ways to Use This
+## Quick Start (5 minutes)
 
-### Option A — Quick Download (no GitHub account needed)
+### 1. Fork this repository
 
-Visit the **online tool** at:
+Click the **Fork** button at the top-right of this page, or use the CLI:
 
+```bash
+git clone https://github.com/AbdelkarimDouadjia/Fetcher.git
+cd Fetcher
 ```
-https://abdelkarimdouadjia.github.io/Fetcher/
-```
 
-1. Pick your modules and TD group
-2. Click **"Generate & download .ics"**
-3. Import the file into your calendar app
+### 2. Edit your modules
 
-> This gives you a one-time `.ics` file. To get **automatic updates** every 6 hours, use Option B.
-
----
-
-### Option B — Auto-updating Calendar (recommended, needs free GitHub account)
-
-This creates your own personal calendar URL that **refreshes every 6 hours** automatically.
-
-> **⚠️ Important:** Downloading or cloning the repo on your computer is **not enough**. The project must live in a repository on **your own GitHub account** for GitHub Pages and GitHub Actions to work.
-
-#### Step 1 — Create your own GitHub copy
-
-1. [**Sign up for a free GitHub account**](https://github.com/signup) if you don't have one
-2. Go to [**this repository**](https://github.com/AbdelkarimDouadjia/Fetcher)
-3. Recommended: create a **normal repository on your account** with these files
-4. If the repo owner enables **Use this template**, use that button
-5. If not, create a new public repo on your account and upload or push this project into it
-6. A **fork** also works, but GitHub disables workflows on forks by default
-
-Your copy will be at `https://github.com/<your-username>/<repo-name>`
-
-> **Tip:** If you keep the repo name as `Fetcher`, all the example URLs below work exactly as written. If you rename it, replace `Fetcher` with your repo name.
-
-#### Step 2 — Edit your modules
-
-1. In **your GitHub copy**, click the file `calendar-config.json`
-2. Click the **pencil icon** ✏️ (top-right of the file) to edit it directly on GitHub
-3. Replace the modules with **your own** from your [contrat d'études](https://inscription.uvsq.fr/ipweb/jsp/contrat_peda_standalone.jsf):
+Open `calendar-config.json` and replace with **your** modules from your *contrat d'études*:
 
 ```json
 {
   "startDate": "2026-01-19",
   "endDate": "2026-08-31",
   "modules": [
-    { "code": "MIN17212", "name": "Simulation", "tdGroup": 1 },
+    { "code": "MIN15221", "name": "TER", "tdGroup": 1 },
+    { "code": "MIN17201", "name": "Programmation, GL et Preuve", "tdGroup": 3 },
     { "code": "MSANGS2I", "name": "Anglais", "tdGroup": 4 },
-    { "code": "MIN17214", "name": "Conception de BD", "tdGroup": 2 }
+    { "code": "MIN17211", "name": "Méthodes de Ranking", "tdGroup": 1 },
+    { "code": "MIN17212", "name": "Simulation", "tdGroup": 1 },
+    { "code": "MIN17214", "name": "Conception de BD", "tdGroup": 2 },
+    { "code": "MIN17216", "name": "Réseaux étendus", "tdGroup": 1 }
   ]
 }
 ```
-
-4. Click **"Commit changes"** (the green button)
 
 **How to find your info:**
 
 | Field | Where to find it |
 |---|---|
-| `code` | Module code from your [contrat d'études](https://inscription.uvsq.fr/ipweb/jsp/contrat_peda_standalone.jsf) (e.g. `MIN17212`) |
-| `name` | Module name (e.g. `Simulation`) |
+| `code` | The module code from your contrat d'études (e.g. `MIN17212`) |
+| `name` | The module name (e.g. `Simulation`) |
 | `tdGroup` | Your TD group number — check your contrat or CELCAT (e.g. `TD01` → `1`) |
-| `startDate` | First day of your semester (`YYYY-MM-DD`) |
-| `endDate` | Last day you want covered (`YYYY-MM-DD`) |
+| `startDate` | First day of your semester (format: `YYYY-MM-DD`) |
+| `endDate` | Last day you want covered (format: `YYYY-MM-DD`) |
 
-> **Tip:** Module codes follow the pattern `MINxxxxx` or `MSANGSxx`.
+> **Tip:** Module codes follow the pattern `MINxxxxx` or `MSANGSxx`. You can find them on your contrat d'études at [UVSQ Inscription](https://inscription.uvsq.fr/ipweb/jsp/contrat_peda_standalone.jsf).
 
-#### Step 3 — Enable GitHub Pages
+### 3. Enable GitHub Pages
 
-1. In your GitHub copy, go to **Settings** → **Pages** (left sidebar)
+1. Go to your fork's **Settings** → **Pages**
 2. Under **Source**, select: **main** branch, **`/ (root)`** folder
 3. Click **Save**
-4. Wait ~1 minute — your page will be live at `https://<your-username>.github.io/<repo-name>/`
+4. Wait ~1 minute for the first deployment
 
-> This repo now includes `.nojekyll`, which helps GitHub Pages publish the static site directly even if Actions on a fork are still disabled.
+### 4. Enable GitHub Actions
 
-#### Step 4 — Enable GitHub Actions
+1. Go to **Settings** → **Actions** → **General**
+2. Select **"Allow all actions and reusable workflows"**
+3. Click **Save**
 
-> In a normal repository, Actions is usually already enabled. On **forks**, workflows are **disabled by default**, so you must enable them manually.
-
-1. If you used a fork, go to the **Actions** tab in your fork
-2. You'll see a yellow banner: _"Workflows aren't being run on this forked repository"_
-3. Click **"I understand my workflows, go ahead and enable them"**
-4. Then go to **Settings** → **Actions** → **General**
-5. Select **"Allow all actions and reusable workflows"**
-6. Click **Save**
-
-#### Step 5 — Run the workflow (first time)
+### 5. Run the workflow (first time)
 
 1. Go to the **Actions** tab
 2. Click **"Update Calendar"** on the left
 3. Click **"Run workflow"** → **"Run workflow"**
 4. Wait for the green ✓ (takes ~30 seconds)
-5. Also run **"Fetch CELCAT Events Data"** the same way (this powers the online tool)
 
-#### Step 6 — Subscribe to your calendar
+### 6. Subscribe to your calendar
 
-Your personal calendar URL is:
+Your calendar URL is:
 
 ```
-https://<your-username>.github.io/<repo-name>/calendar.ics
+https://<your-username>.github.io/Fetcher/calendar.ics
 ```
 
-Replace `<your-username>` with your GitHub username and `<repo-name>` with your repository name.
-
-**Add it to your calendar app:**
+**Subscribe** (auto-updating — recommended):
 
 | App | How to subscribe |
 |---|---|
 | **Google Calendar** | Other calendars **(+)** → **From URL** → paste the link |
-| **iPhone / iPad** | **Settings** → **Calendar** → **Accounts** → **Add** → **Other** → **Subscribed Calendars** → paste |
+| **iPhone / iPad** | **Settings** → **Calendar** → **Accounts** → **Add** → **Other** → **Subscribed Calendars** → paste the link |
 | **Outlook** | **Add calendar** → **Subscribe from web** → paste the link |
-| **Samsung / Android** | Open the URL in your browser → it offers to add to Calendar |
+| **Samsung / Android** | Open the URL in your browser → it will offer to add to Calendar |
 
-> Your calendar app will auto-refresh every 12–24 hours. GitHub Actions refreshes the data every 6 hours.
-
-#### That's it! 🎉
-
-From now on, your calendar stays in sync automatically. When a class is moved, a room changes, or a session is cancelled — your phone/laptop calendar updates by itself.
+> Your calendar app will check for updates every 12–24 hours automatically.
 
 ---
 
@@ -180,7 +140,7 @@ From now on, your calendar stays in sync automatically. When a class is moved, a
 │  → calendar.ics  │                  │  (static host) │
 └─────────────────┘                   └───────┬───────┘
                                               │
-                             https://...github.io/<repo-name>/calendar.ics
+                               https://...github.io/Fetcher/calendar.ics
                                               │
                                               ▼
                                     ┌──────────────────┐
@@ -203,21 +163,17 @@ From now on, your calendar stays in sync automatically. When a class is moved, a
 
 ```
 Fetcher/
-├── .nojekyll               ← Lets GitHub Pages deploy static files directly
 ├── calendar-config.json    ← YOUR config (modules, groups, dates)
 ├── calendar.ics            ← Generated calendar (auto-updated)
-├── celcat-data.json        ← Pre-fetched CELCAT events (auto-updated)
 ├── generate.py             ← Standalone generator script
-├── fetch_all_events.py     ← Fetches all events for client-side tool
 ├── requirements.txt        ← Python dependencies
-├── index.html              ← Online tool (GitHub Pages)
-├── app.js                  ← Client-side tool logic
-├── style.css               ← Web app styles
+├── index.html              ← Main web app (GitHub Pages)
+├── app.js                  ← Web app logic (static)
+├── style.css               ← Web app styles (Awwwards design)
 ├── docs.html               ← Setup & documentation guide
 ├── .github/
 │   └── workflows/
-│       ├── update-calendar.yml   ← Cron: update your calendar.ics
-│       └── fetch-events.yml      ← Cron: update celcat-data.json
+│       └── update-calendar.yml  ← GitHub Actions cron workflow
 ├── web/                    ← Flask web app (optional, for local use)
 │   ├── app.py
 │   ├── celcat_client.py
@@ -306,25 +262,7 @@ No. Each event has a stable UID based on the CELCAT event ID. When your calendar
 <details>
 <summary><strong>Can I share my calendar URL with classmates?</strong></summary>
 
-Only if they have the **exact same** modules and TD groups. Otherwise, they should create **their own GitHub copy** of the project and set up their own config — it takes 5 minutes. Share this guide with them!
-</details>
-
-<details>
-<summary><strong>My friend downloaded/cloned the repo but workflows don't run</strong></summary>
-
-Downloading or cloning is **not enough**. They need the project in a repository on **their own GitHub account**. Best option: create a new repo with these files (or use **Use this template** if available). A fork also works, but needs extra Actions setup. See [Option B](#option-b--auto-updating-calendar-recommended-needs-free-github-account) above.
-</details>
-
-<details>
-<summary><strong>I forked but Actions are disabled / not running</strong></summary>
-
-GitHub disables workflows by default on forks. Go to the **Actions** tab and click **"I understand my workflows, go ahead and enable them"**. Then go to **Settings → Actions → General** and allow all actions.
-</details>
-
-<details>
-<summary><strong>What is the easiest setup for classmates?</strong></summary>
-
-If possible, ask them to create a **normal repo on their own account** from this project instead of forking. That avoids the extra fork workflow restrictions. If you later mark this repo as a **template repository** in GitHub settings, they can use **Use this template** directly.
+Yes, but only if they have the **exact same** modules and TD groups. Otherwise, they should fork the repo and set up their own config.
 </details>
 
 <details>

@@ -248,11 +248,11 @@
   <div class="container">
     <div class="hero-badge">UVSQ CELCAT Calendar Tool</div>
     <h1>Your schedule,<br/><span>always in sync.</span></h1>
-    <p>Auto-updating university calendar from CELCAT. Create your own GitHub copy, set your modules, and subscribe — your calendar stays fresh forever. 100% free.</p>
+    <p>Auto-updating university calendar from CELCAT. Fork the repo, set your modules, and subscribe — your calendar stays fresh forever. 100% free.</p>
     <div class="hero-actions">
-      <a href="https://github.com/AbdelkarimDouadjia/Fetcher" class="btn-primary">
+      <a href="https://github.com/AbdelkarimDouadjia/Fetcher/fork" class="btn-primary">
         <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0zM5 3.25a.75.75 0 10-1.5 0 .75.75 0 001.5 0zm6.75.75a.75.75 0 10 0-1.5.75.75 0 000 1.5zM8 12.75a.75.75 0 10-1.5 0 .75.75 0 001.5 0z"/></svg>
-        Create Your Copy
+        Fork &amp; Get Started
       </a>
       <a href="#setup" class="btn-secondary">How it works</a>
     </div>
@@ -264,9 +264,9 @@
   <div class="container">
     <div class="url-card">
       <h2>📅 Your calendar URL</h2>
-      <p>After creating your GitHub copy and setting it up, your personal calendar will be at:</p>
+      <p>After forking and setting up, your personal calendar will be at:</p>
       <div class="url-box">
-        <input type="text" id="calUrl" value="https://&lt;your-username&gt;.github.io/&lt;repo-name&gt;/calendar.ics" readonly />
+        <input type="text" id="calUrl" value="https://<your-username>.github.io/Fetcher/calendar.ics" readonly />
         <button onclick="copyUrl()">Copy</button>
       </div>
     </div>
@@ -322,8 +322,8 @@
       <div class="step">
         <div class="step-num">1</div>
         <div class="step-content">
-          <h3>Create your own GitHub copy</h3>
-          <p>Put the project in a repository on your own GitHub account. Best option: create a normal repo with these files (or use <strong>Use this template</strong> if available). A fork works too, but workflows are disabled on forks by default. Downloading or cloning only on your computer is not enough.</p>
+          <h3>Fork this repository</h3>
+          <p>Click <a href="https://github.com/AbdelkarimDouadjia/Fetcher/fork" style="color:var(--accent)">Fork</a> on GitHub. This creates your own copy of the project.</p>
         </div>
       </div>
 
@@ -347,7 +347,7 @@
         <div class="step-num">3</div>
         <div class="step-content">
           <h3>Enable GitHub Pages</h3>
-          <p>Go to <strong>Settings → Pages → Source</strong>: select <code>main</code> branch, <code>/ (root)</code> folder, click Save. This repo includes <code>.nojekyll</code>, so the static site can publish directly.</p>
+          <p>Go to <strong>Settings → Pages → Source</strong>: select <code>main</code> branch, <code>/ (root)</code> folder, click Save.</p>
         </div>
       </div>
 
@@ -355,7 +355,7 @@
         <div class="step-num">4</div>
         <div class="step-content">
           <h3>Enable Actions</h3>
-          <p>If you used a fork, first open the <strong>Actions</strong> tab and click the yellow banner to enable workflows. Then go to <strong>Settings → Actions → General</strong>, select <em>"Allow all actions"</em>, and click Save.</p>
+          <p>Go to <strong>Settings → Actions → General</strong>, select <em>"Allow all actions"</em>, click Save.</p>
         </div>
       </div>
 
@@ -363,7 +363,7 @@
         <div class="step-num">5</div>
         <div class="step-content">
           <h3>Run the workflow</h3>
-          <p>Go to <strong>Actions → Update Calendar → Run workflow</strong>. Wait for the green ✓ (~30 seconds). If you want the hosted generator page in your copy too, also run <strong>Fetch CELCAT Events Data</strong> once.</p>
+          <p>Go to <strong>Actions → Update Calendar → Run workflow</strong>. Wait for the green ✓ (~30 seconds).</p>
         </div>
       </div>
 
@@ -371,7 +371,7 @@
         <div class="step-num">6</div>
         <div class="step-content">
           <h3>Subscribe!</h3>
-          <p>Add <code>https://&lt;your-username&gt;.github.io/&lt;repo-name&gt;/calendar.ics</code> to your calendar app. If your repo is still called <code>Fetcher</code>, the link ends with <code>/Fetcher/calendar.ics</code>.</p>
+          <p>Add <code>https://&lt;your-username&gt;.github.io/Fetcher/calendar.ics</code> to your calendar app. Done!</p>
         </div>
       </div>
     </div>

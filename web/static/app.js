@@ -97,13 +97,12 @@ const I18N = {
     ],
     guideGitHubTitle: "GitHub Pages (gratuit, sans serveur)",
     guideGitHubSteps: [
-      "Crée ton propre dépôt GitHub avec ce projet. Le plus simple est un dépôt normal avec ces fichiers ; un fork fonctionne aussi.",
-      "Si tu utilises un fork, GitHub désactive les workflows par défaut.",
+      "Fork le dépôt sur GitHub.",
       "Modifie calendar-config.json avec tes modules et groupes TD.",
       "Va dans Settings → Pages → Source : branche main, dossier / (root) → Save.",
-      "Si tu utilises un fork, ouvre Actions, accepte le bandeau jaune, puis va dans Settings → Actions → General → coche 'Allow all actions'.",
+      "Va dans Settings → Actions → General → coche 'Allow all actions'.",
       "Lance le workflow manuellement : Actions → Update Calendar → Run workflow.",
-      "Ton calendrier est disponible à https://<your-username>.github.io/<repo-name>/calendar.ics",
+      "Ton calendrier est disponible à https://AbdelkarimDouadjia.github.io/Fetcher/calendar.ics",
       "Abonne-toi à cette URL dans ton appli calendrier. Il se met à jour toutes les 6h automatiquement."
     ],
   },
@@ -197,13 +196,12 @@ const I18N = {
     ],
     guideGitHubTitle: "GitHub Pages (free, no server needed)",
     guideGitHubSteps: [
-      "Create your own GitHub repository with this project. A normal repo with these files is easiest; a fork also works.",
-      "If you use a fork, GitHub disables workflows by default.",
+      "Fork the repository on GitHub.",
       "Edit calendar-config.json with your modules and TD groups.",
       "Go to Settings → Pages → Source: main branch, / (root) folder → Save.",
-      "If you use a fork, open Actions, accept the yellow banner, then go to Settings → Actions → General → check 'Allow all actions'.",
+      "Go to Settings → Actions → General → check 'Allow all actions'.",
       "Trigger the workflow manually: Actions → Update Calendar → Run workflow.",
-      "Your calendar is available at https://<your-username>.github.io/<repo-name>/calendar.ics",
+      "Your calendar is available at https://AbdelkarimDouadjia.github.io/Fetcher/calendar.ics",
       "Subscribe to this URL in your calendar app. It auto-updates every 6 hours."
     ],
   },
