@@ -11,8 +11,7 @@ const I18N = {
     heroBadge: "Outil Calendrier Universitaire",
     heroLine1: "Construis ton",
     heroLine2: "emploi du temps",
-    heroSub:
-      "On détecte automatiquement tes modules depuis CELCAT. Choisis et télécharge.",
+    heroSub: "On détecte automatiquement tes modules depuis CELCAT. Choisis et télécharge.",
     loadingGroups: "Connexion à CELCAT...",
     loadingModules: "Chargement des modules...",
     errorLoad: "Erreur de connexion.",
@@ -21,12 +20,10 @@ const I18N = {
     dateFrom: "Du",
     dateTo: "Au",
     pickerTitle: "Sélectionne tes modules",
-    pickerSub:
-      "Coche ceux de ton contrat d'études et indique ton groupe de TD.",
+    pickerSub: "Coche ceux de ton contrat d'études et indique ton groupe de TD.",
     selectAll: "Tout sélectionner",
     deselectAll: "Tout décocher",
-    examNote:
-      "Examens, partiels et soutenances sont toujours inclus automatiquement.",
+    examNote: "Examens, partiels et soutenances sont toujours inclus automatiquement.",
     generate: "Générer et télécharger .ics",
     generating: "Génération en cours...",
     noModules: "Aucun module trouvé.",
@@ -64,8 +61,7 @@ const I18N = {
     subscribe: "Obtenir un lien auto-actualisé",
     subscribing: "Création du lien...",
     subTitle: "Ton lien auto-actualisé",
-    subDesc:
-      "Abonne-toi à ce lien dans ton appli calendrier. Il récupérera toujours le dernier emploi du temps depuis CELCAT.",
+    subDesc: "Abonne-toi à ce lien dans ton appli calendrier. Il récupérera toujours le dernier emploi du temps depuis CELCAT.",
     copy: "Copier",
     copied: "Copié !",
     subOneClick: "Ouvrir dans l'appli Calendrier",
@@ -74,21 +70,19 @@ const I18N = {
       "Google Calendar : Autres calendriers (+) → À partir de l'URL → colle le lien.",
       "iPhone / iPad : Réglages → Calendrier → Comptes → Ajouter → Autre → S'abonner → colle le lien.",
       "Outlook : Ajouter un calendrier → S'abonner sur le web → colle le lien.",
-      "Ton calendrier se mettra à jour automatiquement (toutes les 12 à 24h selon l'appli).",
+      "Ton calendrier se mettra à jour automatiquement (toutes les 12 à 24h selon l'appli)."
     ],
     guideSubTitle: "Abonnement (auto-actualisation)",
     guideSubSteps: [
-      'Sur la page principale, sélectionne tes modules et clique "Obtenir un lien auto-actualisé".',
+      "Sur la page principale, sélectionne tes modules et clique \"Obtenir un lien auto-actualisé\".",
       "Copie le lien généré.",
       "Ajoute-le dans ton appli calendrier (voir ci-dessus).",
-      "Ton emploi du temps se synchronisera automatiquement quand CELCAT change.",
+      "Ton emploi du temps se synchronisera automatiquement quand CELCAT change."
     ],
-    subHostNote:
-      "Note : Le lien d'abonnement nécessite un serveur public. Tu peux aussi utiliser GitHub Actions + Pages pour une solution gratuite (voir le guide).",
+    subHostNote: "Note : Le lien d'abonnement nécessite un serveur public. Tu peux aussi utiliser GitHub Actions + Pages pour une solution gratuite (voir le guide).",
     orUpdate: "ou mettre à jour un fichier existant",
     updateTitle: "Mettre à jour ton calendrier",
-    updateDesc:
-      "Envoie un fichier .ics généré précédemment. On détectera tes modules et on téléchargera une version actualisée avec les derniers changements de CELCAT.",
+    updateDesc: "Envoie un fichier .ics généré précédemment. On détectera tes modules et on téléchargera une version actualisée avec les derniers changements de CELCAT.",
     updateDropText: "Glisse ton fichier .ics ici ou clique pour parcourir",
     updateDropHint: "Uniquement les fichiers .ics générés par cet outil",
     updateUploading: "Analyse et mise à jour en cours...",
@@ -96,10 +90,10 @@ const I18N = {
     updateError: "Erreur lors de la mise à jour.",
     guideUpdateTitle: "Mise à jour manuelle",
     guideUpdateSteps: [
-      'Sur la page principale, fais défiler jusqu\'à la section "Mettre à jour".',
+      "Sur la page principale, fais défiler jusqu'à la section \"Mettre à jour\".",
       "Envoie ton ancien fichier .ics.",
       "Un nouveau fichier sera téléchargé avec les changements de CELCAT.",
-      "Réimporte-le dans ton calendrier (il remplacera les anciens événements).",
+      "Réimporte-le dans ton calendrier (il remplacera les anciens événements)."
     ],
     guideGitHubTitle: "GitHub Pages (gratuit, sans serveur)",
     guideGitHubSteps: [
@@ -110,15 +104,14 @@ const I18N = {
       "Si tu utilises un fork, ouvre Actions, accepte le bandeau jaune, puis va dans Settings → Actions → General → coche 'Allow all actions'.",
       "Lance le workflow manuellement : Actions → Update Calendar → Run workflow.",
       "Ton calendrier est disponible à https://<your-username>.github.io/<repo-name>/calendar.ics",
-      "Abonne-toi à cette URL dans ton appli calendrier. Il se met à jour toutes les 6h automatiquement.",
+      "Abonne-toi à cette URL dans ton appli calendrier. Il se met à jour toutes les 6h automatiquement."
     ],
   },
   en: {
     heroBadge: "University Calendar Tool",
     heroLine1: "Build your",
     heroLine2: "perfect schedule",
-    heroSub:
-      "We auto-detect all your modules from CELCAT. Just pick and download.",
+    heroSub: "We auto-detect all your modules from CELCAT. Just pick and download.",
     loadingGroups: "Connecting to CELCAT...",
     loadingModules: "Loading modules...",
     errorLoad: "Connection error.",
@@ -127,8 +120,7 @@ const I18N = {
     dateFrom: "From",
     dateTo: "To",
     pickerTitle: "Select your modules",
-    pickerSub:
-      "Check the ones from your study contract and set your TD group number.",
+    pickerSub: "Check the ones from your study contract and set your TD group number.",
     selectAll: "Select all",
     deselectAll: "Deselect all",
     examNote: "Exams, midterms and defenses are always included automatically.",
@@ -169,8 +161,7 @@ const I18N = {
     subscribe: "Get auto-update link",
     subscribing: "Generating link...",
     subTitle: "Your auto-update link",
-    subDesc:
-      "Subscribe to this link in your calendar app. It will always fetch the latest schedule from CELCAT.",
+    subDesc: "Subscribe to this link in your calendar app. It will always fetch the latest schedule from CELCAT.",
     copy: "Copy",
     copied: "Copied!",
     subOneClick: "Open in Calendar app",
@@ -179,21 +170,19 @@ const I18N = {
       "Google Calendar: Other calendars (+) → From URL → paste the link.",
       "iPhone / iPad: Settings → Calendar → Accounts → Add → Other → Subscribed → paste the link.",
       "Outlook: Add calendar → Subscribe from web → paste the link.",
-      "Your calendar will auto-refresh (every 12–24h depending on the app).",
+      "Your calendar will auto-refresh (every 12–24h depending on the app)."
     ],
     guideSubTitle: "Subscription (auto-update)",
     guideSubSteps: [
-      'On the main page, select your modules and click "Get auto-update link".',
+      "On the main page, select your modules and click \"Get auto-update link\".",
       "Copy the generated link.",
       "Add it to your calendar app (see above).",
-      "Your schedule will auto-sync whenever CELCAT changes.",
+      "Your schedule will auto-sync whenever CELCAT changes."
     ],
-    subHostNote:
-      "Note: The subscription link requires a public server. You can also use GitHub Actions + Pages for a free solution (see the guide).",
+    subHostNote: "Note: The subscription link requires a public server. You can also use GitHub Actions + Pages for a free solution (see the guide).",
     orUpdate: "or update an existing file",
     updateTitle: "Update your calendar",
-    updateDesc:
-      "Upload a previously generated .ics file. We'll detect your modules and download a refreshed version with the latest changes from CELCAT.",
+    updateDesc: "Upload a previously generated .ics file. We'll detect your modules and download a refreshed version with the latest changes from CELCAT.",
     updateDropText: "Drop your .ics file here or click to browse",
     updateDropHint: "Only .ics files generated by this tool",
     updateUploading: "Analyzing and updating...",
@@ -201,10 +190,10 @@ const I18N = {
     updateError: "Error updating the file.",
     guideUpdateTitle: "Manual update",
     guideUpdateSteps: [
-      'On the main page, scroll down to the "Update" section.',
+      "On the main page, scroll down to the \"Update\" section.",
       "Upload your old .ics file.",
       "A new file will be downloaded with the latest CELCAT changes.",
-      "Re-import it into your calendar (it will replace old events).",
+      "Re-import it into your calendar (it will replace old events)."
     ],
     guideGitHubTitle: "GitHub Pages (free, no server needed)",
     guideGitHubSteps: [
@@ -215,7 +204,7 @@ const I18N = {
       "If you use a fork, open Actions, accept the yellow banner, then go to Settings → Actions → General → check 'Allow all actions'.",
       "Trigger the workflow manually: Actions → Update Calendar → Run workflow.",
       "Your calendar is available at https://<your-username>.github.io/<repo-name>/calendar.ics",
-      "Subscribe to this URL in your calendar app. It auto-updates every 6 hours.",
+      "Subscribe to this URL in your calendar app. It auto-updates every 6 hours."
     ],
   },
 };
@@ -223,11 +212,9 @@ const I18N = {
 // -----------------------------------------------------------------
 // State
 // -----------------------------------------------------------------
-let lang =
-  localStorage.getItem("lang") ||
-  (navigator.language.startsWith("fr") ? "fr" : "en");
+let lang = localStorage.getItem("lang") || (navigator.language.startsWith("fr") ? "fr" : "en");
 let allModules = [];
-let allGroups = [];
+let allGroups  = [];
 let totalEvents = 0;
 
 const $ = (s) => document.querySelector(s);
@@ -237,9 +224,7 @@ const $$ = (s) => document.querySelectorAll(s);
 // Theme
 // -----------------------------------------------------------------
 function getSystemTheme() {
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 function applyTheme(choice) {
   localStorage.setItem("theme", choice);
@@ -248,44 +233,32 @@ function applyTheme(choice) {
 }
 function initTheme() {
   applyTheme(localStorage.getItem("theme") || "auto");
-  window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", () => {
-      if ((localStorage.getItem("theme") || "auto") === "auto")
-        applyTheme("auto");
-    });
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+    if ((localStorage.getItem("theme") || "auto") === "auto") applyTheme("auto");
+  });
 }
 
 // -----------------------------------------------------------------
 // i18n
 // -----------------------------------------------------------------
-function t(key) {
-  return (I18N[lang] || I18N.en)[key] || key;
-}
+function t(key) { return (I18N[lang] || I18N.en)[key] || key; }
 
 function setLang(l) {
   lang = l;
   localStorage.setItem("lang", l);
-  $$(".lang-btn").forEach((b) =>
-    b.classList.toggle("active", b.dataset.lang === l)
-  );
+  $$(".lang-btn").forEach((b) => b.classList.toggle("active", b.dataset.lang === l));
   renderUI();
 }
 
 function renderUI() {
-  const setText = (sel, key) => {
-    const el = $(sel);
-    if (el) el.textContent = t(key);
-  };
+  const setText = (sel, key) => { const el = $(sel); if (el) el.textContent = t(key); };
   $$("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
     if (I18N[lang] && I18N[lang][key] && typeof I18N[lang][key] === "string") {
       el.textContent = I18N[lang][key];
     }
   });
-  $$(".lang-btn").forEach((b) =>
-    b.classList.toggle("active", b.dataset.lang === lang)
-  );
+  $$(".lang-btn").forEach((b) => b.classList.toggle("active", b.dataset.lang === lang));
   $$(".guide-link span").forEach((el) => (el.textContent = t("guide")));
   if (totalEvents) {
     const ct = $("#eventCountText");
@@ -309,80 +282,29 @@ function playEntrance() {
   const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
   // Navbar slides in
-  tl.to(".navbar", { y: 0, duration: 0.6, ease: "power2.out" }, 0);
+  tl.to(".navbar", { y: 0, duration: .6, ease: "power2.out" }, 0);
 
   // Blobs drift in
-  tl.fromTo(
-    ".blob-1",
-    { x: -120, y: -80, scale: 0.6 },
-    { x: 0, y: 0, scale: 1, duration: 1.8, ease: "power1.out" },
-    0
-  );
-  tl.fromTo(
-    ".blob-2",
-    { x: 100, y: 60, scale: 0.5 },
-    { x: 0, y: 0, scale: 1, duration: 2, ease: "power1.out" },
-    0.1
-  );
-  tl.fromTo(
-    ".blob-3",
-    { x: -60, y: 100, scale: 0.5 },
-    { x: 0, y: 0, scale: 1, duration: 2.2, ease: "power1.out" },
-    0.2
-  );
+  tl.fromTo(".blob-1", { x: -120, y: -80, scale: .6 }, { x: 0, y: 0, scale: 1, duration: 1.8, ease: "power1.out" }, 0);
+  tl.fromTo(".blob-2", { x: 100, y: 60, scale: .5 }, { x: 0, y: 0, scale: 1, duration: 2, ease: "power1.out" }, 0.1);
+  tl.fromTo(".blob-3", { x: -60, y: 100, scale: .5 }, { x: 0, y: 0, scale: 1, duration: 2.2, ease: "power1.out" }, 0.2);
 
   // Hero badge
-  tl.fromTo(
-    ".hero-badge",
-    { opacity: 0, y: 20 },
-    { opacity: 1, y: 0, duration: 0.5 },
-    0.3
-  );
+  tl.fromTo(".hero-badge", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .5 }, .3);
 
   // Title lines stagger
-  tl.fromTo(
-    ".title-line",
-    { opacity: 0, y: 40 },
-    { opacity: 1, y: 0, stagger: 0.12, duration: 0.6 },
-    0.45
-  );
+  tl.fromTo(".title-line", { opacity: 0, y: 40 }, { opacity: 1, y: 0, stagger: .12, duration: .6 }, .45);
 
   // Subtitle
-  tl.fromTo(
-    ".hero-sub",
-    { opacity: 0, y: 20 },
-    { opacity: 1, y: 0, duration: 0.5 },
-    0.75
-  );
+  tl.fromTo(".hero-sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .5 }, .75);
 
   // Loader
-  tl.fromTo(".hero-loader", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.9);
+  tl.fromTo(".hero-loader", { opacity: 0 }, { opacity: 1, duration: .4 }, .9);
 
   // Continuous blob floating
-  gsap.to(".blob-1", {
-    x: 30,
-    y: -20,
-    duration: 8,
-    repeat: -1,
-    yoyo: true,
-    ease: "sine.inOut",
-  });
-  gsap.to(".blob-2", {
-    x: -25,
-    y: 15,
-    duration: 10,
-    repeat: -1,
-    yoyo: true,
-    ease: "sine.inOut",
-  });
-  gsap.to(".blob-3", {
-    x: 20,
-    y: -25,
-    duration: 9,
-    repeat: -1,
-    yoyo: true,
-    ease: "sine.inOut",
-  });
+  gsap.to(".blob-1", { x: 30, y: -20, duration: 8, repeat: -1, yoyo: true, ease: "sine.inOut" });
+  gsap.to(".blob-2", { x: -25, y: 15, duration: 10, repeat: -1, yoyo: true, ease: "sine.inOut" });
+  gsap.to(".blob-3", { x: 20, y: -25, duration: 9, repeat: -1, yoyo: true, ease: "sine.inOut" });
 }
 
 // -----------------------------------------------------------------
@@ -412,70 +334,36 @@ function transitionToContent() {
       mc.style.opacity = "1";
       mc.style.visibility = "visible";
       gsap.set(".module-card", { clearProps: "opacity,y" });
-    },
+    }
   });
 
   // Fade out loader
-  tl.to(".hero-loader", { opacity: 0, duration: 0.3 }, 0);
+  tl.to(".hero-loader", { opacity: 0, duration: .3 }, 0);
 
   // Collapse hero
-  tl.to(
-    "#heroSection",
-    {
-      minHeight: "auto",
-      paddingTop: "6.5rem",
-      paddingBottom: "1.5rem",
-      duration: 0.7,
-      ease: "power2.inOut",
-    },
-    0.2
-  );
+  tl.to("#heroSection", {
+    minHeight: "auto",
+    paddingTop: "6.5rem",
+    paddingBottom: "1.5rem",
+    duration: .7,
+    ease: "power2.inOut"
+  }, .2);
 
   // Hide scroll hint
-  tl.to("#scrollHint", { opacity: 0, duration: 0.2 }, 0);
+  tl.to("#scrollHint", { opacity: 0, duration: .2 }, 0);
 
   // Show main content (explicit fromTo avoids stale state issues)
-  tl.fromTo(
-    mc,
-    { opacity: 0, visibility: "hidden" },
-    { opacity: 1, visibility: "visible", duration: 0.5 },
-    0.5
-  );
+  tl.fromTo(mc, { opacity: 0, visibility: "hidden" }, { opacity: 1, visibility: "visible", duration: .5 }, .5);
 
   // Stagger info bar & picker (fromTo for deterministic start/end)
-  tl.fromTo(
-    "#infoBar",
-    { y: 30, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.5 },
-    0.6
-  );
-  tl.fromTo(
-    ".picker-header",
-    { y: 20, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.4 },
-    0.7
-  );
-  tl.fromTo(
-    ".module-card",
-    { y: 20, opacity: 0 },
-    { y: 0, opacity: 1, stagger: 0.04, duration: 0.35 },
-    0.8
-  );
-  tl.fromTo(
-    ".exam-notice",
-    { y: 15, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.3 },
-    1
-  );
-  tl.fromTo(
-    ".btn-generate",
-    { y: 15, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.3 },
-    1.05
-  );
+  tl.fromTo("#infoBar", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: .5 }, .6);
+  tl.fromTo(".picker-header", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: .4 }, .7);
+  tl.fromTo(".module-card", { y: 20, opacity: 0 }, { y: 0, opacity: 1, stagger: .04, duration: .35 }, .8);
+  tl.fromTo(".exam-notice", { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: .3 }, 1);
+  tl.fromTo(".btn-generate", { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: .3 }, 1.05);
 
   // Show scroll hint briefly then hide
-  tl.set("#scrollHint", { display: "none" }, 0.5);
+  tl.set("#scrollHint", { display: "none" }, .5);
 }
 
 // -----------------------------------------------------------------
@@ -531,10 +419,7 @@ async function fetchModules() {
     // Fallback: force visibility after animation window
     setTimeout(() => {
       const mc = document.getElementById("mainContent");
-      if (mc) {
-        mc.style.opacity = "1";
-        mc.style.visibility = "visible";
-      }
+      if (mc) { mc.style.opacity = "1"; mc.style.visibility = "visible"; }
     }, 2200);
   } catch (e) {
     status.textContent = t("errorLoad") + " " + e.message;
@@ -575,8 +460,7 @@ function renderModules() {
     sel.dataset.code = mod.code;
     sel.disabled = true;
     sel.innerHTML = '<option value="">—</option>';
-    for (let i = 1; i <= maxGr; i++)
-      sel.innerHTML += `<option value="${i}">${i}</option>`;
+    for (let i = 1; i <= maxGr; i++) sel.innerHTML += `<option value="${i}">${i}</option>`;
 
     // Click card = toggle checkbox
     card.addEventListener("click", (e) => {
@@ -632,18 +516,11 @@ async function generate() {
       return;
     }
     const mod = allModules.find((m) => m.code === code);
-    selected.push({
-      code,
-      name: mod ? mod.name : code,
-      tdGroup: parseInt(grp),
-    });
+    selected.push({ code, name: mod ? mod.name : code, tdGroup: parseInt(grp) });
   });
 
   if (hasError) return;
-  if (!selected.length) {
-    errEl.textContent = t("selectAtLeast");
-    return;
-  }
+  if (!selected.length) { errEl.textContent = t("selectAtLeast"); return; }
 
   btn.disabled = true;
   const sp = btn.querySelector(".btn-generate-text");
@@ -757,18 +634,11 @@ async function subscribe() {
       return;
     }
     const mod = allModules.find((m) => m.code === code);
-    selected.push({
-      code,
-      name: mod ? mod.name : code,
-      tdGroup: parseInt(grp),
-    });
+    selected.push({ code, name: mod ? mod.name : code, tdGroup: parseInt(grp) });
   });
 
   if (hasError) return;
-  if (!selected.length) {
-    errEl.textContent = t("selectAtLeast");
-    return;
-  }
+  if (!selected.length) { errEl.textContent = t("selectAtLeast"); return; }
 
   btn.disabled = true;
   const sp = btn.querySelector(".btn-subscribe-text");
@@ -818,9 +688,7 @@ function copySubUrl() {
     const span = btn.querySelector("span");
     if (span) {
       span.textContent = t("copied");
-      setTimeout(() => {
-        span.textContent = t("copy");
-      }, 2000);
+      setTimeout(() => { span.textContent = t("copy"); }, 2000);
     }
   });
 }

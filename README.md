@@ -27,15 +27,15 @@ A GitHub Actions cron job **automatically refreshes** the calendar every 6 hours
 
 ### What you get
 
-| Feature             | Description                                                   |
-| ------------------- | ------------------------------------------------------------- |
-| **Auto-update**     | Calendar refreshes every 6 hours via GitHub Actions           |
-| **Smart filtering** | Only your enrolled modules + your TD/TP group                 |
-| **Exam detection**  | Exams, midterms, and defenses always included                 |
+| Feature | Description |
+|---|---|
+| **Auto-update** | Calendar refreshes every 6 hours via GitHub Actions |
+| **Smart filtering** | Only your enrolled modules + your TD/TP group |
+| **Exam detection** | Exams, midterms, and defenses always included |
 | **Room & location** | Full room info (e.g. `AMPHI B - DESCARTES`, `G207 - GERMAIN`) |
-| **Reminders**       | Built-in 30 min + 1 day before alarms                         |
-| **Stable UIDs**     | Events update in-place — no duplicates                        |
-| **100% free**       | GitHub Actions + GitHub Pages, no paid service                |
+| **Reminders** | Built-in 30 min + 1 day before alarms |
+| **Stable UIDs** | Events update in-place — no duplicates |
+| **100% free** | GitHub Actions + GitHub Pages, no paid service |
 
 ---
 
@@ -98,13 +98,13 @@ Your copy will be at `https://github.com/<your-username>/<repo-name>`
 
 **How to find your info:**
 
-| Field       | Where to find it                                                                                                              |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `code`      | Module code from your [contrat d'études](https://inscription.uvsq.fr/ipweb/jsp/contrat_peda_standalone.jsf) (e.g. `MIN17212`) |
-| `name`      | Module name (e.g. `Simulation`)                                                                                               |
-| `tdGroup`   | Your TD group number — check your contrat or CELCAT (e.g. `TD01` → `1`)                                                       |
-| `startDate` | First day of your semester (`YYYY-MM-DD`)                                                                                     |
-| `endDate`   | Last day you want covered (`YYYY-MM-DD`)                                                                                      |
+| Field | Where to find it |
+|---|---|
+| `code` | Module code from your [contrat d'études](https://inscription.uvsq.fr/ipweb/jsp/contrat_peda_standalone.jsf) (e.g. `MIN17212`) |
+| `name` | Module name (e.g. `Simulation`) |
+| `tdGroup` | Your TD group number — check your contrat or CELCAT (e.g. `TD01` → `1`) |
+| `startDate` | First day of your semester (`YYYY-MM-DD`) |
+| `endDate` | Last day you want covered (`YYYY-MM-DD`) |
 
 > **Tip:** Module codes follow the pattern `MINxxxxx` or `MSANGSxx`.
 
@@ -148,12 +148,12 @@ Replace `<your-username>` with your GitHub username and `<repo-name>` with your 
 
 **Add it to your calendar app:**
 
-| App                   | How to subscribe                                                                                    |
-| --------------------- | --------------------------------------------------------------------------------------------------- |
-| **Google Calendar**   | Other calendars **(+)** → **From URL** → paste the link                                             |
-| **iPhone / iPad**     | **Settings** → **Calendar** → **Accounts** → **Add** → **Other** → **Subscribed Calendars** → paste |
-| **Outlook**           | **Add calendar** → **Subscribe from web** → paste the link                                          |
-| **Samsung / Android** | Open the URL in your browser → it offers to add to Calendar                                         |
+| App | How to subscribe |
+|---|---|
+| **Google Calendar** | Other calendars **(+)** → **From URL** → paste the link |
+| **iPhone / iPad** | **Settings** → **Calendar** → **Accounts** → **Add** → **Other** → **Subscribed Calendars** → paste |
+| **Outlook** | **Add calendar** → **Subscribe from web** → paste the link |
+| **Samsung / Android** | Open the URL in your browser → it offers to add to Calendar |
 
 > Your calendar app will auto-refresh every 12–24 hours. GitHub Actions refreshes the data every 6 hours.
 
@@ -287,7 +287,6 @@ Reads `calendar-config.json` and writes `calendar.ics`.
 <summary><strong>Can I use this for a different programme (not M1 AMIS)?</strong></summary>
 
 Currently the search term `"M1 AMIS"` is hardcoded. You'd need to edit `generate.py` and `web/app.py` to change the `search_groups()` call. PRs welcome!
-
 </details>
 
 <details>
@@ -302,49 +301,42 @@ Currently the search term `"M1 AMIS"` is hardcoded. You'd need to edit `generate
 <summary><strong>Will I get duplicate events?</strong></summary>
 
 No. Each event has a stable UID based on the CELCAT event ID. When your calendar app fetches the updated file, it replaces existing events — no duplicates.
-
 </details>
 
 <details>
 <summary><strong>Can I share my calendar URL with classmates?</strong></summary>
 
 Only if they have the **exact same** modules and TD groups. Otherwise, they should create **their own GitHub copy** of the project and set up their own config — it takes 5 minutes. Share this guide with them!
-
 </details>
 
 <details>
 <summary><strong>My friend downloaded/cloned the repo but workflows don't run</strong></summary>
 
 Downloading or cloning is **not enough**. They need the project in a repository on **their own GitHub account**. Best option: create a new repo with these files (or use **Use this template** if available). A fork also works, but needs extra Actions setup. See [Option B](#option-b--auto-updating-calendar-recommended-needs-free-github-account) above.
-
 </details>
 
 <details>
 <summary><strong>I forked but Actions are disabled / not running</strong></summary>
 
 GitHub disables workflows by default on forks. Go to the **Actions** tab and click **"I understand my workflows, go ahead and enable them"**. Then go to **Settings → Actions → General** and allow all actions.
-
 </details>
 
 <details>
 <summary><strong>What is the easiest setup for classmates?</strong></summary>
 
 If possible, ask them to create a **normal repo on their own account** from this project instead of forking. That avoids the extra fork workflow restrictions. If you later mark this repo as a **template repository** in GitHub settings, they can use **Use this template** directly.
-
 </details>
 
 <details>
 <summary><strong>The workflow failed — what do I do?</strong></summary>
 
 Usually it's a temporary CELCAT server issue. Go to **Actions** and re-run the failed workflow. If it keeps failing, check that your module codes are correct in `calendar-config.json`.
-
 </details>
 
 <details>
 <summary><strong>Is this free?</strong></summary>
 
 Yes, 100% free. GitHub Actions gives unlimited minutes for public repos, and GitHub Pages is free static hosting.
-
 </details>
 
 ---
