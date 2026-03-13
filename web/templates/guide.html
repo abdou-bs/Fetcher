@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Import Guide – UVSQ Calendar Fetcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<div class="bg-blobs" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="navbar" style="transform:none">
+  <div class="navbar-inner">
+    <a href="/" class="navbar-brand" style="text-decoration:none;color:inherit">
+      <div class="brand-dot"></div>
+      <span class="brand-text">UVSQ Calendar</span>
+    </a>
+    <nav class="navbar-nav">
+      <div class="toggle-group lang-group">
+        <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+      </div>
+      <button class="theme-toggle" onclick="cycleTheme()" aria-label="Toggle theme">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main class="guide-page">
+  <a href="/" class="back-link" data-i18n="guideBack">← Back</a>
+  <h1 data-i18n="guideTitle">How to import the .ics file</h1>
+
+  <section class="card guide-card">
+    <h2 data-i18n="guideGoogle">Google Calendar</h2>
+    <ol id="guideGoogleSteps"></ol>
+  </section>
+
+  <section class="card guide-card">
+    <h2 data-i18n="guideOutlook">Outlook</h2>
+    <ol id="guideOutlookSteps"></ol>
+  </section>
+
+  <section class="card guide-card">
+    <h2 data-i18n="guideApple">Apple Calendar (macOS / iOS)</h2>
+    <ol id="guideAppleSteps"></ol>
+  </section>
+
+  <section class="card guide-card">
+    <h2 data-i18n="guidePhone">Samsung / Android Calendar</h2>
+    <ol id="guidePhoneSteps"></ol>
+  </section>
+
+  <section class="card guide-card sub-guide-card">
+    <h2 data-i18n="guideSubTitle">Subscription (auto-update)</h2>
+    <ol id="guideSubSteps"></ol>
+  </section>
+
+  <section class="card guide-card">
+    <h2 data-i18n="guideUpdateTitle">Manual update</h2>
+    <ol id="guideUpdateSteps"></ol>
+  </section>
+
+  <section class="card guide-card sub-guide-card">
+    <h2 data-i18n="guideGitHubTitle">GitHub Pages (free, no server needed)</h2>
+    <ol id="guideGitHubSteps"></ol>
+  </section>
+
+  <p class="tip" id="guideTip"></p>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <small>UVSQ Calendar Fetcher &mdash; Not affiliated with UVSQ or CELCAT.</small>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="/static/app.js"></script>
+<script>
+  function renderGuide() {
+    ["Google", "Outlook", "Apple", "Phone", "Sub", "Update", "GitHub"].forEach((key) => {
+      const ol = document.getElementById("guide" + key + "Steps");
+      if (!ol) return;
+      ol.innerHTML = "";
+      const steps = t("guide" + key + "Steps");
+      if (Array.isArray(steps)) {
+        steps.forEach((s) => {
+          const li = document.createElement("li");
+          li.textContent = s;
+          ol.appendChild(li);
+        });
+      }
+    });
+    const tip = document.getElementById("guideTip");
+    if (tip) tip.textContent = t("guideTip");
+  }
+
+  // Override renderUI for guide page
+  renderUI = function () {
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      const key = el.getAttribute("data-i18n");
+      if (I18N[lang] && I18N[lang][key] && typeof I18N[lang][key] === "string") {
+        el.textContent = I18N[lang][key];
+      }
+    });
+    document.querySelectorAll(".lang-btn").forEach((b) =>
+      b.classList.toggle("active", b.dataset.lang === lang)
+    );
+    renderGuide();
+  };
+
+  function cycleTheme() {
+    const cur = localStorage.getItem('theme') || 'auto';
+    const next = cur === 'light' ? 'dark' : cur === 'dark' ? 'auto' : 'light';
+    applyTheme(next);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    initTheme();
+    setLang(lang);
+    // Animate blobs
+    if (typeof gsap !== "undefined") {
+      gsap.to(".blob-1", { x: 30, y: -20, duration: 8, repeat: -1, yoyo: true, ease: "sine.inOut" });
+      gsap.to(".blob-2", { x: -25, y: 15, duration: 10, repeat: -1, yoyo: true, ease: "sine.inOut" });
+      gsap.to(".blob-3", { x: 20, y: -25, duration: 9, repeat: -1, yoyo: true, ease: "sine.inOut" });
+      // Cards stagger in
+      gsap.from(".guide-card", { y: 30, opacity: 0, stagger: .1, duration: .5, delay: .2, ease: "power2.out" });
+    }
+  });
+</script>
+</body>
+</html>

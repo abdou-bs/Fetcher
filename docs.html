@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fetcher — UVSQ CELCAT Calendar</title>
+  <meta name="description"
+    content="Auto-updating university calendar from CELCAT UVSQ. Subscribe once, stay synced forever." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: rgba(255, 255, 255, 0.04);
+      --surface-hover: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f0f0f5;
+      --text-dim: #8888a0;
+      --accent: #6c63ff;
+      --accent-glow: rgba(108, 99, 255, 0.3);
+      --green: #27ae60;
+      --pink: #e91e63;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Animated background */
+    .bg-blobs {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: .25;
+      animation: float 20s ease-in-out infinite alternate;
+    }
+
+    .blob-1 {
+      width: 600px;
+      height: 600px;
+      background: var(--accent);
+      top: -10%;
+      left: -10%;
+    }
+
+    .blob-2 {
+      width: 500px;
+      height: 500px;
+      background: var(--pink);
+      bottom: -10%;
+      right: -10%;
+      animation-delay: -7s;
+    }
+
+    .blob-3 {
+      width: 400px;
+      height: 400px;
+      background: var(--green);
+      top: 40%;
+      left: 50%;
+      animation-delay: -14s;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      33% {
+        transform: translate(30px, -20px) scale(1.05);
+      }
+
+      66% {
+        transform: translate(-20px, 15px) scale(.95);
+      }
+
+      100% {
+        transform: translate(10px, -10px) scale(1.02);
+      }
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: .03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* Layout */
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding: 16px 0;
+      background: rgba(10, 10, 15, 0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .navbar-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    .brand-text {
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: .875rem;
+      font-weight: 500;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .gh-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: .8rem;
+      font-weight: 600;
+      transition: all .2s;
+    }
+
+    .gh-btn:hover {
+      background: var(--surface-hover);
+      border-color: var(--accent);
+    }
+
+    .gh-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 100px 0 60px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -.04em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-dim);
+      max-width: 560px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: .95rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all .25s;
+      box-shadow: 0 4px 24px var(--accent-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px var(--accent-glow);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all .25s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface-hover);
+      border-color: var(--accent);
+    }
+
+    /* URL box */
+    .url-section {
+      padding: 20px 0 60px;
+    }
+
+    .url-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+    }
+
+    .url-card h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .url-card p {
+      color: var(--text-dim);
+      font-size: .9rem;
+      margin-bottom: 20px;
+    }
+
+    .url-box {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: rgba(0, 0, 0, .3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .url-box input {
+      flex: 1;
+      padding: 12px 16px;
+      background: transparent;
+      border: none;
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .85rem;
+      outline: none;
+      min-width: 0;
+    }
+
+    .url-box button {
+      padding: 12px 20px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      font-weight: 700;
+      font-size: .8rem;
+      cursor: pointer;
+      transition: background .2s;
+      white-space: nowrap;
+    }
+
+    .url-box button:hover {
+      background: #5a52e0;
+    }
+
+    /* Features */
+    .features {
+      padding: 40px 0 60px;
+    }
+
+    .features h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 40px;
+      letter-spacing: -.02em;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: all .25s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+    }
+
+    .feature-card h3 {
+      font-size: .95rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .feature-card p {
+      font-size: .82rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* Setup steps */
+    .setup {
+      padding: 40px 0 60px;
+    }
+
+    .setup h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 12px;
+      letter-spacing: -.02em;
+    }
+
+    .setup>p {
+      text-align: center;
+      color: var(--text-dim);
+      font-size: .95rem;
+      margin-bottom: 40px;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .step {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: border-color .2s;
+    }
+
+    .step:hover {
+      border-color: var(--accent);
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: .9rem;
+    }
+
+    .step-content h3 {
+      font-size: .95rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .step-content p {
+      font-size: .85rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    .step-content code {
+      padding: 2px 8px;
+      background: rgba(108, 99, 255, 0.15);
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .8rem;
+      color: var(--accent);
+    }
+
+    /* Config example */
+    .config-block {
+      margin-top: 12px;
+      background: rgba(0, 0, 0, .3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      overflow-x: auto;
+    }
+
+    .config-block pre {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .78rem;
+      line-height: 1.7;
+      color: var(--text-dim);
+      white-space: pre;
+    }
+
+    .config-block .key {
+      color: var(--accent);
+    }
+
+    .config-block .str {
+      color: var(--green);
+    }
+
+    .config-block .num {
+      color: var(--pink);
+    }
+
+    /* Subscribe section */
+    .subscribe {
+      padding: 40px 0 60px;
+    }
+
+    .subscribe h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 40px;
+      letter-spacing: -.02em;
+    }
+
+    .sub-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .sub-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
+      transition: all .25s;
+    }
+
+    .sub-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .sub-card .icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .sub-card h3 {
+      font-size: .9rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .sub-card p {
+      font-size: .78rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 40px 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      color: var(--text-dim);
+      font-size: .8rem;
+    }
+
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+      .hero {
+        padding: 60px 0 40px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .nav-links a:not(.gh-btn) {
+        display: none;
+      }
+
+      .url-box {
+        flex-direction: column;
+      }
+
+      .url-box button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="brand">
+        <div class="brand-dot"></div>
+        <span class="brand-text">Fetcher</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="#features">Features</a>
+        <a href="#setup">Setup</a>
+        <a href="#subscribe">Subscribe</a>
+        <a href="https://github.com/AbdelkarimDouadjia/Fetcher" class="gh-btn">
+          <svg viewBox="0 0 16 16">
+            <path
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+          </svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">UVSQ CELCAT Calendar Tool</div>
+      <h1>Your schedule,<br /><span>always in sync.</span></h1>
+      <p>Auto-updating university calendar from CELCAT. Create your own GitHub copy, set your modules, and subscribe —
+        your calendar stays fresh forever. 100% free.</p>
+      <div class="hero-actions">
+        <a href="https://github.com/AbdelkarimDouadjia/Fetcher" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
+            <path
+              d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0zM5 3.25a.75.75 0 10-1.5 0 .75.75 0 001.5 0zm6.75.75a.75.75 0 10 0-1.5.75.75 0 000 1.5zM8 12.75a.75.75 0 10-1.5 0 .75.75 0 001.5 0z" />
+          </svg>
+          Create Your Copy
+        </a>
+        <a href="#setup" class="btn-secondary">How it works</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calendar URL -->
+  <section class="url-section">
+    <div class="container">
+      <div class="url-card">
+        <h2>📅 Your calendar URL</h2>
+        <p>After creating your GitHub copy and setting it up, your personal calendar will be at:</p>
+        <div class="url-box">
+          <input type="text" id="calUrl" value="https://&lt;your-username&gt;.github.io/&lt;repo-name&gt;/calendar.ics"
+            readonly />
+          <button onclick="copyUrl()">Copy</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="container">
+      <h2>What you get</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🔄</div>
+          <h3>Auto-update every 6h</h3>
+          <p>GitHub Actions fetches fresh data from CELCAT automatically. Room changes, cancellations — all reflected.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Smart filtering</h3>
+          <p>Only your enrolled modules and your TD/TP group. No noise from other groups.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📝</div>
+          <h3>Exams auto-detected</h3>
+          <p>Midterms, finals, defenses — always included regardless of module selection.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📍</div>
+          <h3>Full room info</h3>
+          <p>AMPHI B - DESCARTES, G207 - GERMAIN — exact rooms shown in your calendar.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⏰</div>
+          <h3>Built-in reminders</h3>
+          <p>Automatic 30-minute and 1-day-before alarms on every event.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💰</div>
+          <h3>100% free</h3>
+          <p>GitHub Actions + Pages. No server, no domain, no subscription fee. Forever free.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Setup -->
+  <section class="setup" id="setup">
+    <div class="container">
+      <h2>Setup in 5 minutes</h2>
+      <p>Share this with your classmates — everyone can have their own auto-updating calendar.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Create your own GitHub copy</h3>
+            <p>Put the project in a repository on your own GitHub account. Best option: create a normal repo with these
+              files (or use <strong>Use this template</strong> if available). A fork works too, but workflows are
+              disabled on forks by default. Downloading or cloning only on your computer is not enough.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>Edit <code>calendar-config.json</code></h3>
+            <p>Replace the modules with yours from your <a
+                href="https://inscription.uvsq.fr/ipweb/jsp/contrat_peda_standalone.jsf" style="color:var(--accent)"
+                target="_blank">contrat d'études</a>. Set your TD group number for each module.</p>
+            <div class="config-block">
+              <pre>{
+  <span class="key">"startDate"</span>: <span class="str">"2026-01-19"</span>,
+  <span class="key">"endDate"</span>: <span class="str">"2026-08-31"</span>,
+  <span class="key">"modules"</span>: [
+    { <span class="key">"code"</span>: <span class="str">"MIN17212"</span>, <span class="key">"name"</span>: <span class="str">"Simulation"</span>, <span class="key">"tdGroup"</span>: <span class="num">1</span> },
+    { <span class="key">"code"</span>: <span class="str">"MSANGS2I"</span>, <span class="key">"name"</span>: <span class="str">"Anglais"</span>, <span class="key">"tdGroup"</span>: <span class="num">4</span> }
+  ]
+}</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Enable GitHub Pages</h3>
+            <p>Go to <strong>Settings → Pages → Source</strong>: select <code>main</code> branch, <code>/ (root)</code>
+              folder, click Save. This repo includes <code>.nojekyll</code>, so the static site can publish directly.
+            </p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h3>Enable Actions</h3>
+            <p>If you used a fork, first open the <strong>Actions</strong> tab and click the yellow banner to enable
+              workflows. Then go to <strong>Settings → Actions → General</strong>, select <em>"Allow all actions"</em>,
+              and click Save.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h3>Run the workflow</h3>
+            <p>Go to <strong>Actions → Update Calendar → Run workflow</strong>. Wait for the green ✓ (~30 seconds). If
+              you want the hosted generator page in your copy too, also run <strong>Fetch CELCAT Events Data</strong>
+              once.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <h3>Subscribe!</h3>
+            <p>Add <code>https://&lt;your-username&gt;.github.io/&lt;repo-name&gt;/calendar.ics</code> to your calendar
+              app. If your repo is still called <code>Fetcher</code>, the link ends with
+              <code>/Fetcher/calendar.ics</code>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Subscribe guide -->
+  <section class="subscribe" id="subscribe">
+    <div class="container">
+      <h2>How to subscribe</h2>
+      <div class="sub-grid">
+        <div class="sub-card">
+          <div class="icon">📱</div>
+          <h3>Google Calendar</h3>
+          <p>Other calendars (+) → From URL → paste your calendar link.</p>
+        </div>
+        <div class="sub-card">
+          <div class="icon">🍎</div>
+          <h3>iPhone / iPad</h3>
+          <p>Settings → Calendar → Accounts → Add → Other → Subscribed → paste the link.</p>
+        </div>
+        <div class="sub-card">
+          <div class="icon">📧</div>
+          <h3>Outlook</h3>
+          <p>Add calendar → Subscribe from web → paste the link.</p>
+        </div>
+        <div class="sub-card">
+          <div class="icon">🤖</div>
+          <h3>Android</h3>
+          <p>Open the URL in your browser — it will offer to add events to your calendar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>
+        Made with ☕ for UVSQ M1 Info students &mdash;
+        <a href="https://github.com/AbdelkarimDouadjia/Fetcher">GitHub</a>
+      </p>
+      <p style="margin-top:6px">Not affiliated with UVSQ or CELCAT.</p>
+    </div>
+  </footer>
+
+  <script>
+    function copyUrl() {
+      const input = document.getElementById('calUrl');
+      navigator.clipboard.writeText(input.value).then(() => {
+        const btn = input.nextElementSibling;
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 2000);
+      });
+    }
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  </script>
+</body>
+
+</html>

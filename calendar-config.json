@@ -1,0 +1,13 @@
+{
+  "startDate": "2026-01-19",
+  "endDate": "2026-08-31",
+  "modules": [
+    { "code": "MIN15221", "name": "TER", "tdGroup": 1 },
+    { "code": "MIN17201", "name": "Programmation, GL et Preuve", "tdGroup": 1 },
+    { "code": "MSANGS2I", "name": "Anglais", "tdGroup": 2 },
+    { "code": "MIN17213", "name": "Tuning de BD", "tdGroup": 1 },
+    { "code": "MIN17214", "name": "Conception de BD", "tdGroup": 2 },
+    { "code": "MIN17211", "name": "Méthodes de Ranking", "tdGroup": 1 },
+    { "code": "MIN17212", "name": "Simulation", "tdGroup": 1 }
+  ]
+}
