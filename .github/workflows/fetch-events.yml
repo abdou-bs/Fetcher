@@ -1,9 +1,16 @@
 name: Fetch CELCAT Events Data
 
 on:
+  workflow_dispatch: {}
   schedule:
-    - cron: '15 */6 * * *'   # every 6 hours (offset from calendar workflow)
-  workflow_dispatch:          # manual trigger
+    - cron: "15 */6 * * *"  # every 6 hours (offset from calendar workflow)
+  push:
+    branches:
+      - master
+    paths:
+      - fetch_all_events.py
+      - celcat_client.py
+      - .github/workflows/fetch-events.yml
 
 permissions:
   contents: write
@@ -16,7 +23,7 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.12"
 
       - name: Install dependencies
         run: pip install requests beautifulsoup4

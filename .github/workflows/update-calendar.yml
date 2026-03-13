@@ -1,10 +1,20 @@
 name: Update Calendar
 
 on:
+  workflow_dispatch: {}
   schedule:
     # Every 6 hours
     - cron: "0 */6 * * *"
-  workflow_dispatch:   # Manual trigger from GitHub UI
+  push:
+    branches:
+      - master
+    paths:
+      - calendar-config.json
+      - generate.py
+      - celcat_client.py
+      - event_filter.py
+      - ics_generator.py
+      - .github/workflows/update-calendar.yml
 
 permissions:
   contents: write
